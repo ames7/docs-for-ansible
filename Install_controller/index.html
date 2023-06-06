@@ -1,0 +1,679 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../tower_upgrade/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+    
+    
+      
+        <title>Install controller - Ansible Docs for Unicorns</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.26e3688c.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Install controller - Ansible Docs for Unicorns" >
+      
+        <meta  property="og:description"  content="None" >
+      
+        <meta  property="og:image"  content="./assets/images/social/Install_controller.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="None" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Install controller - Ansible Docs for Unicorns" >
+      
+        <meta  name="twitter:description"  content="None" >
+      
+        <meta  name="twitter:image"  content="./assets/images/social/Install_controller.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#prerequisites" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Ansible Docs for Unicorns" class="md-header__button md-logo" aria-label="Ansible Docs for Unicorns" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ansible Docs for Unicorns
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Install controller
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+              </label>
+            
+          
+        </form>
+      
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      HomePage
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
+      Install controller
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../tower_upgrade/" class="md-tabs__link">
+      Tower upgrade
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Ansible Docs for Unicorns" class="md-nav__button md-logo" aria-label="Ansible Docs for Unicorns" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Ansible Docs for Unicorns
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        HomePage
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Install controller
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Install controller
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rhel-9-system" class="md-nav__link">
+    RHEL 9 system
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ports-needed" class="md-nav__link">
+    Ports Needed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attach-aap-subscription" class="md-nav__link">
+    Attach AAP Subscription
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-installer-files" class="md-nav__link">
+    Download Installer files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-registry-service-account" class="md-nav__link">
+    Create a Registry Service Account
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-the-installer-inventory-file" class="md-nav__link">
+    Edit the Installer Inventory File
+  </a>
+  
+    <nav class="md-nav" aria-label="Edit the Installer Inventory File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automation-controller-variable" class="md-nav__link">
+    Automation Controller Variable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allvars-variable" class="md-nav__link">
+    All:Vars Variable
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-installer-script" class="md-nav__link">
+    Running the installer Script
+  </a>
+  
+    <nav class="md-nav" aria-label="Running the installer Script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verify-installation-of-automation-controller" class="md-nav__link">
+    Verify Installation of Automation Controller
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#congrats-you-installed-automation-controller" class="md-nav__link">
+    🎉 Congrats! You installed Automation Controller! 🎉
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tower_upgrade/" class="md-nav__link">
+        Tower upgrade
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Install controller</h1>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<h3 id="rhel-9-system">RHEL 9 system</h3>
+<ul>
+<li>Minimum 16GB Ram </li>
+<li>Minimum 4 CPUs</li>
+<li>Minimum 40 GB Disk<ul>
+<li>If installing Postgresql DB on this node its recommended to have a 150GB+ disk</li>
+</ul>
+</li>
+</ul>
+<h3 id="ports-needed">Ports Needed</h3>
+<ul>
+<li>22 (SSH)</li>
+<li>80 (HTTP)</li>
+<li>443 (HTTPS)</li>
+<li>5432 (Postgresql)</li>
+<li>27199 (Receptor)</li>
+</ul>
+<h3 id="attach-aap-subscription">Attach AAP Subscription</h3>
+<ol>
+<li>Register your system: 
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>subscription-manager register
+</code></pre></div></li>
+</ol>
+<blockquote>
+<p>ℹ️ Note</p>
+<p>If you have <a href="https://access.redhat.com/articles/simple-content-access">Simple Content Access</a> enabled you dont need to attach a subscription  </p>
+</blockquote>
+<ol>
+<li>Repositories are disabled by configuration on RHEL 9, so we need to enable them: 
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>subscription-manager config --rhsm.manage_repos=1
+</code></pre></div></li>
+<li>Check to make sure the manage_repos setting changed: 
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>subscription-manager config | grep -i manage_repos 
+</code></pre></div></li>
+<li>Find the pool ID for AAP subscription: 
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>subscription-manager list --available --all | grep &quot;Ansible Automation Platform&quot; -B 3 -A 6
+</code></pre></div>
+   If you have issues finding the repo make sure its enabled: 
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>subscription-manager repos --enable ansible-automation-platform-2.3-for-rhel-9-x86_64-rpms
+</code></pre></div></li>
+<li>Attach the subscription: 
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>subscription-manager attach --pool=&lt;pool_id&gt;
+</code></pre></div></li>
+<li>Make sure the subscription attached: 
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>subscription-manager list --consumed
+</code></pre></div></li>
+</ol>
+<h3 id="download-installer-files">Download Installer files</h3>
+<ol>
+<li>Head over to <a href="https://access.redhat.com/downloads/content/480">https://access.redhat.com/downloads/content/480</a></li>
+<li>Download the Ansible Automation Platform 2.3 Setup file </li>
+<li>Untar the file: 
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>tar xvzf ansible-automation-platform-setup-2.3-2.tar.gz
+</code></pre></div></li>
+</ol>
+<h3 id="create-a-registry-service-account">Create a Registry Service Account</h3>
+<ol>
+<li>Log into <a href="https://access.redhat.com/terms-based-registry/">Registry Service Account Management Application</a></li>
+<li>Click the New Service Account button </li>
+<li>Enter a name for the account (It will be prepended with a fixed, random string)</li>
+<li>Enter a description so later you will know what the account is for...</li>
+<li>Click Create </li>
+<li>Click on the Service Account you just created (these are used to login to registry.redhat.io to pull images/containers)</li>
+<li>Note the username ( ie. XXXXX|username ) </li>
+<li>Note the password </li>
+</ol>
+<h3 id="edit-the-installer-inventory-file">Edit the Installer Inventory File</h3>
+<blockquote>
+<p>Use this example inventory file for a Standalone Automation Controller with an internal database </p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>[automationcontroller]
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>controller.acme.org
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>[all:vars]
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>admin_password=&#39;&lt;password&gt;&#39;
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>pg_host=&#39;&#39;
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>pg_port=&#39;5432&#39;
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>pg_database=&#39;awx&#39;
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>pg_username=&#39;awx&#39;
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>pg_password=&#39;&lt;password&gt;&#39;
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>pg_sslmode=&#39;prefer&#39;  # set to &#39;verify-full&#39; for client-side enforced SSL
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>registry_url=&#39;registry.redhat.io&#39;
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>registry_username=&#39;&lt;registry username&gt;&#39;
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>registry_password=&#39;&lt;registry password&gt;&#39;
+</code></pre></div>
+<h4 id="automation-controller-variable">Automation Controller Variable</h4>
+<ul>
+<li>For the [automationcontroller] variable, you can use a FQDN or a IP address or both, whichever your host can resolve</li>
+<li>If you use both an IP Address and a FQDN make sure to add the 'ansible_host' variable to one of them 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>[automationcontroller]
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a> controller.acme.org 
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>[automationcontroller:vars]
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a> ansible_host=0.0.0.0
+</code></pre></div></li>
+<li>If you are running the install from the controller host make sure to add a 'ansible_connection=local' variable
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>[automationcontroller]
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a> controller.acme.org 
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>[automationcontroller:vars]
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a> ansible_connection=local
+</code></pre></div></li>
+<li>If you are running on an EC2 host you will need to add an variable for the 'ansible_user' and 'ansible_become'
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>[automationcontroller]
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a> controller.acme.org 
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>[automationcontroller:vars]
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a> ansible_user=ec2-user 
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a> ansible_become=true
+</code></pre></div></li>
+</ul>
+<h4 id="allvars-variable">All:Vars Variable</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>[all:vars]
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>admin_password=&#39;&lt;password&gt;&#39;
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>pg_host=&#39;&#39;
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>pg_port=&#39;5432&#39;
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>pg_database=&#39;awx&#39;
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>pg_username=&#39;awx&#39;
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>pg_password=&#39;&lt;password&gt;&#39;
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>pg_sslmode=&#39;prefer&#39;  # set to &#39;verify-full&#39; for client-side enforced SSL
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>registry_url=&#39;registry.redhat.io&#39;
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>registry_username=&#39;&lt;registry username&gt;&#39;
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>registry_password=&#39;&lt;registry password&gt;&#39;
+</code></pre></div>
+<ul>
+<li>For the 'admin_password' variable, this is the password that you will use to login into the UI after the install </li>
+<li>For the 'pg_host' variable, in this installation scenario we will leave this blank as we are not installing the database separately </li>
+<li>For the 'pg_port' variable, enter the postgresql port (5432)</li>
+<li>For the 'pg_database' variable, this is what you want to name the postgresql database </li>
+<li>For the 'pg_username' variable, this is the user you will login into the database with </li>
+<li>For the 'pg_password' variable, this is the password you will login into the databse with </li>
+<li>For the 'pg_sslmode' variable, unless you are configuring client-side SSL leave this as is </li>
+<li>For the 'registry_url' variable, leave this as registry.redhat.io </li>
+<li>For the 'registry_username' variable, this is the username you created earlier in the [Create a Registry Service Account] </li>
+<li>For the 'registry_password' variable, this is the password you created earlier in the [Create a Registry Service Account] </li>
+</ul>
+<h2 id="running-the-installer-script">Running the installer Script</h2>
+<ul>
+<li>Run the setup.sh script 
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>./setup.sh
+</code></pre></div></li>
+</ul>
+<h3 id="verify-installation-of-automation-controller">Verify Installation of Automation Controller</h3>
+<ul>
+<li>Go to the IP address/FQDN of the controller in your inventory file 
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>https://controller.acme.org
+</code></pre></div></li>
+<li>Login using the username 'admin' and the 'admin_password' you set in the inventory file </li>
+</ul>
+<h2 id="congrats-you-installed-automation-controller">🎉 Congrats! You installed Automation Controller! 🎉</h2>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ames7" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/amyrkrieger" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+    
+  </body>
+</html>
